@@ -7,7 +7,6 @@ import Row from "./ui/Row";
 
 
 const StyledApp = styled.div`
-  background-color: orangered;
   padding: 20px;
 `;
 
@@ -16,21 +15,24 @@ export default function App() {
     <>
       <GlobalStyles />
       <StyledApp>
-        <Row>
+        <Row type="verticle">
+
+        <Row type="horizontal">
 
         <Heading as="h1">The wild Oasis</Heading>
         <div>
 
         <Heading as="h2">Checkin in and Out</Heading>
-        <Button>check me in</Button>
-        <Button>check me out</Button>
+        <Button variation="primary" size="medium">check me in</Button>
+        <Button variation="secondary" size="small">check me out</Button>
         </div>
         </Row>
-        <Row>
+        <Row type="verticle">
         <Heading as="h3">Form</Heading>
         <Row>
         <Input type="number" placeholder="number of guests" />
         <Input type="number" placeholder="number of guests" />
+        </Row>
         </Row>
         </Row>
       </StyledApp>
