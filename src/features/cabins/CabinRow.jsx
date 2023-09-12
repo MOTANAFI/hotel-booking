@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import {formatCurrency} from "../../utils/helpers"
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteCabin } from '../../services/apiCabins';
 
 const TableRow = styled.div`
@@ -46,8 +46,17 @@ const Discount = styled.div`
 
 const CabinRow = ({cabin}) => {
   const {id: cabinId, name, maxCapacity, regularPrice, discount, image} = cabin;
+  const queryClient = useQueryClient()
   const {isLoading: isDeleting, mutate} = useMutation({
-    mutationFn: deleteCabin
+    mutationFn: deleteCabin,
+    onSuccess: () => {
+      alert("cabin successfully deleted");
+
+      queryClient.invalidateQueries({
+        queryKey: ['cabins']
+      });
+    },
+    onError: (err) => alert(err.message)
   })
   return (
     <TableRow>
