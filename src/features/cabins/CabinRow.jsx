@@ -65,7 +65,7 @@ const CabinRow = ({cabin}) => {
       <Cabin>{name}</Cabin>
       <div>Fits up tp {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{discount}</Discount>
+      <Discount>${discount}</Discount>
       <button onClick={() => mutate(cabinId)} disabled={isDeleting}>Delete</button>
     </TableRow>
   )
