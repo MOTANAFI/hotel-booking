@@ -13,6 +13,15 @@ if(error) {
 
 return data
 }
+export async function createCabin(newCabin) {
+    
+const { data, error } = await supabase
+.from('cabins')
+.insert([newCabin])
+.select()
+
+    
+}
 
 export async function deleteCabin(id) {
 
