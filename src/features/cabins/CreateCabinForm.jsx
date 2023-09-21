@@ -49,7 +49,7 @@ function CreateCabinForm() {
 
       </FormRow>
 
-      <FormRow label="max capacity" error={errors?.name?.message && <Error>{errors.name.message}</Error>}>
+      <FormRow label="max capacity" error={errors?.maxCapacity?.message && <Error>{errors.maxCapacity.message}</Error>}>
         <Input type="number" id="maxCapacity" {...register("maxCapacity",  {
           required: "This field is required",
           min: {
@@ -59,7 +59,7 @@ function CreateCabinForm() {
         })} />
       </FormRow>
 
-      <FormRow label="Regular price" error={errors?.name?.message && <Error>{errors.name.message}</Error>}>
+      <FormRow label="Regular price" error={errors?.regularPrice?.message && <Error>{errors.regularPrice.message}</Error>}>
         <Input type="number" id="regularPrice" {...register("regularPrice" , {
           required: "This field is required" ,
           min: {
@@ -70,7 +70,7 @@ function CreateCabinForm() {
         
       </FormRow>
 
-      <FormRow label="discount" error= {errors?.name?.message && <Error>{errors.name.message}</Error>}>
+      <FormRow label="discount" error= {errors?.discount?.message && <Error>{errors.discount.message}</Error>}>
         
         <Input
           type="number"
@@ -84,7 +84,7 @@ function CreateCabinForm() {
        
       </FormRow>
 
-      <FormRow label="Description for website" error={errors?.name?.message && <Error>{errors.name.message}</Error>} >
+      <FormRow label="Description for website" error={errors?.description?.message && <Error>{errors.description.message}</Error>} >
         <Textarea
           type="number"
           id="description"
@@ -96,7 +96,7 @@ function CreateCabinForm() {
         
       </FormRow>
 
-      <FormRow label="cabin photo" error={errors?.name?.message && <Error>{errors.name.message}</Error>}>
+      <FormRow label="cabin photo" error={errors?.image?.message && <Error>{errors.image.message}</Error>}>
 
         <FileInput id="image" accept="image/*" {...register("image")} />
         
