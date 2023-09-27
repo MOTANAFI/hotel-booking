@@ -13,23 +13,23 @@ import FormRow from "../../ui/FormRow";
 
 
 
-// const Error = styled.span`
-// font-size: 1.4rem;
-// color: var(--color-red-700);
-// `
+const Error = styled.span`
+font-size: 1.4rem;
+color: var(--color-red-700);
+`
 
-function CreateCabinForm({editingCabin}) {
-  const {id: editId, ...editValues} = editingCabin;
+function CreateCabinForm({cabinToEdit = {}}) {
+  const {id: editId, ...editValues} = cabinToEdit;
   const isEditSession = Boolean(editId)
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
-    defaultValues: isEditSession ? editValues : {}
+    defaultValues: isEditSession ? editValues : {},
 
   });
   const {errors} = formState
   console.log(errors)
   const queryClient = useQueryClient();
-  const { mutate: createCabin, isLoading: isCreating } = useMutation({
+  const { mutate, isLoading: isCreating } = useMutation({
     mutationFn: createEditCabin,
     onSuccess: () => {
       toast.success("New cabin successfully created");

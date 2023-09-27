@@ -32,15 +32,13 @@ export async function createEditCabin(newCabin, id) {
 .insert([{...newCabin, image: imagePath}])
 
 // B) Edit 
-if(id) query = query
-.update({ other_column: 'otherValue' })
-.eq('id', id)
-.select()
-const {data, error } = await query.select().single()
+if (id) query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
+
+const { data, error } = await query.select().single();
 
 if (error) {
-    console.error(error)
-    throw new Error("Cabin could not be created")
+  console.error(error);
+  throw new Error("Cabin could not be created");
 }
 
 // 2. Upload image

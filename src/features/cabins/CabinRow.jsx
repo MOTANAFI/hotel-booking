@@ -74,7 +74,7 @@ const CabinRow = ({cabin}) => {
       <button onClick={() => mutate(cabinId)} disabled={isDeleting}>Delete</button>
       </div>
     </TableRow>
-    {show && <CreateCabinForm editingCabin={cabin}/>}
+    {show && <CreateCabinForm cabinToEdit={cabin}/>}
     </>
   )
 }
