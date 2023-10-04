@@ -38,9 +38,13 @@ function CreateCabinForm() {
    
   }
 
+  function onError(errors) {
+    // console.log(errors)
+  }
+
  
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow
         label="cabin name"
         error={errors?.name?.message && <Error>{errors.name.message}</Error>}
@@ -52,6 +56,7 @@ function CreateCabinForm() {
             required: "This field is required",
           })}
         />
+      
       </FormRow>
 
       <FormRow
@@ -100,6 +105,7 @@ function CreateCabinForm() {
 
       <FormRow
         label="discount"
+
         error={
           errors?.discount?.message && <Error>{errors.discount.message}</Error>
         }
