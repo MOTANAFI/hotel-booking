@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import styled from "styled-components";
-import {formatCurrency} from "../../utils/helpers"
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteCabin } from '../../services/apiCabins';
-import toast from 'react-hot-toast';
-import CreateCabinForm from './CreateCabinForm';
+import { formatCurrency } from "../../utils/helpers";
+import { useDeleteCabin } from "./useDeleteCabin";
+import CreateCabinForm from "./CreateCabinForm";
 
 const TableRow = styled.div`
   display: grid;
@@ -45,38 +43,39 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-
-const CabinRow = ({cabin}) => {
-  const [show, setShow] = useState(false)
-  const {id: cabinId, name, maxCapacity, regularPrice, discount, image} = cabin;
-  const queryClient = useQueryClient()
-  const {isLoading: isDeleting, mutate} = useMutation({
-    mutationFn: deleteCabin,
-    onSuccess: () => {
-      toast.success("cabin successfully deleted");
-
-      queryClient.invalidateQueries({
-        queryKey: ['cabins']
-      });
-    },
-    onError: (err) => toast.error(err.message)
-  })
+const CabinRow = ({ cabin }) => {
+  const [show, setShow] = useState(false);
+  const { isDeleting, deleteCabin } = useDeleteCabin();
+  const {
+    id: cabinId,
+    name,
+    maxCapacity,
+    regularPrice,
+    discount,
+    image,
+  } = cabin;
   return (
     <>
-    <TableRow>
-      <img src={image} alt={name}/>
-      <Cabin>{name}</Cabin>
-      <div>Fits up tp {maxCapacity} guests</div>
-      <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>${discount}</Discount>
-      <div>
-        <button onClick={() => setShow(show => !show)}>edit</button>
-      <button onClick={() => mutate(cabinId)} disabled={isDeleting}>Delete</button>
-      </div>
-    </TableRow>
-    {show && <CreateCabinForm cabinToEdit={cabin}/>}
+      <TableRow>
+        <img src={image} alt={name} />
+        <Cabin>{name}</Cabin>
+        <div>Fits up tp {maxCapacity} guests</div>
+        <Price>{formatCurrency(regularPrice)}</Price>
+        {discount ? (
+          <Discount>{formatCurrency(discount)}</Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
+        <div>
+          <button onClick={() => setShow((show) => !show)}>edit</button>
+          <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
+            Delete
+          </button>
+        </div>
+      </TableRow>
+      {show && <CreateCabinForm cabinToEdit={cabin} />}
     </>
-  )
-}
+  );
+};
 
-export default CabinRow
+export default CabinRow;
