@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 
-
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
@@ -17,7 +16,7 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToEdit = {}, OnCloseModal }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
   const { register, handleSubmit, reset, getValues, formState } = useForm({
@@ -44,14 +43,19 @@ function CreateCabinForm({ cabinToEdit = {} }) {
         {
           onSuccess: (data) => {
             reset();
+            OnCloseModal?.();
           },
         }
       );
-    else createCabin({ ...data, image },
-      {
-        onSuccess: (data) => reset()
-
-      }
+    else
+      createCabin(
+        { ...data, image },
+        {
+          onSuccess: (data) => {
+            reset();
+            OnCloseModal?.()
+          },
+        }
       ); // if it is not woring change to image: image
   }
 
@@ -173,7 +177,11 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => OnCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button disabled={isWorking}>
