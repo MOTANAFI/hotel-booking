@@ -16,7 +16,7 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-function CreateCabinForm({ cabinToEdit = {}, OnCloseModal }) {
+function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
   const { register, handleSubmit, reset, getValues, formState } = useForm({
@@ -43,7 +43,7 @@ function CreateCabinForm({ cabinToEdit = {}, OnCloseModal }) {
         {
           onSuccess: (data) => {
             reset();
-            OnCloseModal?.();
+            onCloseModal?.();
           },
         }
       );
@@ -53,7 +53,7 @@ function CreateCabinForm({ cabinToEdit = {}, OnCloseModal }) {
         {
           onSuccess: (data) => {
             reset();
-            OnCloseModal?.()
+            onCloseModal?.()
           },
         }
       ); // if it is not woring change to image: image
@@ -64,7 +64,7 @@ function CreateCabinForm({ cabinToEdit = {}, OnCloseModal }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)} type={OnCloseModal ? "modal" : "regular"}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)} type={onCloseModal ? "modal" : "regular"}>
       <FormRow
         label="cabin name"
         error={errors?.name?.message && <Error>{errors.name.message}</Error>}
@@ -180,7 +180,7 @@ function CreateCabinForm({ cabinToEdit = {}, OnCloseModal }) {
         <Button
           variation="secondary"
           type="reset"
-          onClick={() => OnCloseModal?.()}
+          onClick={() => onCloseModal?.()}
         >
           Cancel
         </Button>
