@@ -5,12 +5,17 @@ import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
+import Empty from "../../ui/Empty";
 
 function CabinTable() {
   const { isLoading, error, cabins } = useCabins();
   const [searchParams] = useSearchParams();
 
+
+
   if (isLoading) return <Spinner />;
+
+  if(!cabins.length) return <Empty resouceName="cabins" />
 
   // 1) FILTER
 
