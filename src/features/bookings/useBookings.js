@@ -10,7 +10,7 @@ export function useBookings(){
     const filter = !filterValue || filterValue === "all" ? null
      : {field: "status", value: filterValue}
 
-     const sortByRow = searchParams.get('sortBy' || "startDate-desc")
+     const sortByRow = searchParams.get('sortBy') || "startDate-desc"
 
      const [field, direction] = sortByRow.split("-");
      const sortBy = {field, direction}
