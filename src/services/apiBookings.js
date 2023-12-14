@@ -19,11 +19,11 @@ export async function getBookings({ filter, sortBy, page }) {
       ascending: sortBy.direction === "asc",
     });
 
-    if(page) {
-      const from = (page - 1) * PAGE_SIZE;
-       const to = from + PAGE_SIZE - 1;
-      query = query.range(from, to)
-    }
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
 
   const { data, error, count } = await query;
 
@@ -69,7 +69,6 @@ export async function getBookingsAfterDate(date) {
 export async function getStaysAfterDate(date) {
   const { data, error } = await supabase
     .from("bookings")
-    // .select('*')
     .select("*, guests(fullName)")
     .gte("startDate", date)
     .lte("startDate", getToday());
